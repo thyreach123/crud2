@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<div class="container">
+    <h2>Todo-list</h2>
+    <div id="todo-list">
+        <input type="text" placeholder="Enter list" id="inputItem" autocomplete="off">
+        <button id="submit">Add</button>
+    </div>
+    <div id="theList" class="list2"></div>
+</div>
+<!--------------------Style--------------------------->
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 50vh;
+        background-color: #f0f0f0;
+        margin: 0;
+    }
+    .container {
+        border: 1px solid #ddd;
+        background-color: #fff;
+        border-radius: 10px;
+        width: 300px;
+        text-align: center;
+    }
+    .list2{
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+        margin-left: 50px;
+    }
+    </style>
+
+<!--------------------javascript---------------------->
+    <script>
+        let userInput = document.getElementById("inputItem");
+        let addBtn = document.getElementById("submit");
+        let listItem = document.getElementById("theList");
+
+        addBtn.addEventListener("click", addItem);
+        userInput.addEventListener("keyup", function(e){
+            if (e.key == "Enter"){
+                addItem();
+            }
+        })
+
+        function addItem() {
+            if (userInput.value === ''){
+                return;
+            }
+
+            let list = document.createElement("list");
+            list.innerText = userInput.value;
+            listItem.appendChild(list);
+
+            let deleteBtn = document.createElement("button");
+            deleteBtn.innerText = "Delete";
+
+            let editBtn = document.createElement("button");
+            editBtn.innerText = "Edit";
+
+            list.appendChild(deleteBtn);
+            list.appendChild(editBtn);
+
+            deleteBtn.addEventListener("click", function(){
+                listItem.removeChild(list);
+            })
+
+            editBtn.addEventListener("click", function(){
+                let editText = prompt();
+                if (editText == '' || null){
+                    return null;
+                }
+                list.innerText = editText;
+                list.appendChild(deleteBtn);
+                list.appendChild(editBtn);
+            })
+
+            userInput.value = "";
+        }
+
+    </script>
+    
+</body>
+</html>
